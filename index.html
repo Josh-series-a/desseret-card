@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Logo Grid</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #f4f4f4;
+        }
+
+        .logo-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 15px;
+            max-width: 600px;
+            width: 100%;
+            padding: 20px;
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .logo-grid a {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: white;
+            padding: 10px;
+            transition: transform 0.2s ease-in-out;
+        }
+
+        .logo-grid a:hover {
+            transform: scale(1.05);
+        }
+
+        .logo-grid img {
+            max-width: 100%;
+            height: auto;
+            object-fit: contain;
+        }
+
+        @media (max-width: 480px) {
+            .logo-grid {
+                grid-template-columns: repeat(2, 1fr); /* 2 columns on small screens */
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="logo-grid">
+        <a href="https://example1.com" target="_blank"><img src="logo1.png" alt="Logo 1"></a>
+        <a href="https://example2.com" target="_blank"><img src="logo2.png" alt="Logo 2"></a>
+        <a href="https://example3.com" target="_blank"><img src="logo3.png" alt="Logo 3"></a>
+        <a href="https://example4.com" target="_blank"><img src="logo4.png" alt="Logo 4"></a>
+        <a href="https://example5.com" target="_blank"><img src="logo5.png" alt="Logo 5"></a>
+    </div>
+
+</body>
+</html>
