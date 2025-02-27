@@ -24,21 +24,6 @@
             position: relative;
         }
 
-        /* Rectangle Fade Effect */
-        body::before {
-            content: "";
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(to top, #040304, transparent 30%),
-                        linear-gradient(to bottom, #040304, transparent 30%),
-                        linear-gradient(to left, #040304, transparent 30%),
-                        linear-gradient(to right, #040304, transparent 30%);
-            pointer-events: none;
-        }
-
         .carousel {
             width: 100%;
             max-width: 1200px;
@@ -79,6 +64,26 @@
         @keyframes scroll {
             from { transform: translateX(0); }
             to { transform: translateX(-50%); }
+        }
+
+        /* Gradient overlay starts exactly where the bubbles end */
+        .carousel::before, .carousel::after {
+            content: "";
+            position: absolute;
+            top: 0;
+            width: 100px;
+            height: 100%;
+            background: linear-gradient(to right, #040304, transparent);
+            z-index: 2;
+        }
+
+        .carousel::before {
+            left: 0;
+        }
+
+        .carousel::after {
+            right: 0;
+            background: linear-gradient(to left, #040304, transparent);
         }
 
         @media (max-width: 768px) {
