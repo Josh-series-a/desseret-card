@@ -3,9 +3,16 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Smooth Auto-Scrolling Bubble Carousel</title>
+    <title>Auto-Scrolling Bubble Carousel</title>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap');
+
+        :root {
+            --bubble-size: 140px;
+            --bubble-font-size: 14px;
+            --bubble-margin: 10px;
+            --carousel-height: calc(var(--bubble-size) + var(--bubble-margin) * 2);
+        }
 
         * {
             margin: 0;
@@ -13,15 +20,15 @@
             box-sizing: border-box;
         }
 
-        body {
+        html, body {
             font-family: 'Poppins', sans-serif;
+            background: #040304;
+            overflow: hidden;
             display: flex;
             justify-content: center;
             align-items: center;
-            height: 100vh;
-            background: transparent;
-            overflow: hidden;
-            position: relative;
+            width: 100vw;
+            height: var(--carousel-height);
         }
 
         .carousel {
@@ -29,31 +36,33 @@
             max-width: 1200px;
             overflow: hidden;
             position: relative;
+            height: var(--carousel-height);
         }
 
         .carousel-track {
             display: flex;
             animation: scroll 20s linear infinite;
+            width: max-content;
         }
 
         .bubble {
-            width: 140px;
-            height: 140px;
+            width: var(--bubble-size);
+            height: var(--bubble-size);
             background: linear-gradient(145deg, #2c7b6d, #3da08a);
             color: white;
             font-weight: 600;
-            font-size: 14px;
+            font-size: var(--bubble-font-size);
             text-align: center;
             display: flex;
             align-items: center;
             justify-content: center;
             border-radius: 50%;
-            margin: 10px;
+            margin: var(--bubble-margin);
             cursor: pointer;
             flex-shrink: 0;
             box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
             transition: transform 0.3s ease, background 0.3s ease;
-            white-space: pre-wrap; /* Allow line breaks */
+            white-space: pre-wrap;
         }
 
         .bubble:hover {
@@ -66,19 +75,19 @@
             to { transform: translateX(-50%); }
         }
 
-        /* Gradient overlay starts exactly where the bubbles end */
+        /* Gradient overlays */
         .carousel::before, .carousel::after {
             content: "";
             position: absolute;
             top: 0;
-            width: 100px;
+            width: 15vw;
             height: 100%;
-            background: linear-gradient(to right, #040304, transparent);
             z-index: 2;
         }
 
         .carousel::before {
             left: 0;
+            background: linear-gradient(to right, #040304, transparent);
         }
 
         .carousel::after {
@@ -86,19 +95,18 @@
             background: linear-gradient(to left, #040304, transparent);
         }
 
+        /* Responsive Design */
         @media (max-width: 768px) {
-            .bubble {
-                width: 100px;
-                height: 100px;
-                font-size: 12px;
+            :root {
+                --bubble-size: 100px;
+                --bubble-font-size: 12px;
             }
         }
 
         @media (max-width: 480px) {
-            .bubble {
-                width: 80px;
-                height: 80px;
-                font-size: 10px;
+            :root {
+                --bubble-size: 80px;
+                --bubble-font-size: 10px;
             }
         }
     </style>
@@ -106,32 +114,29 @@
 <body>
 
     <div class="carousel">
-        <div class="carousel-track">
-            <!-- Bubbles -->
-            <div class="bubble">Cybersecurity</div>
-            <div class="bubble">Cloud</div>
-            <div class="bubble">AI & Automation</div>
-            <div class="bubble">Colocations</div>
-            <div class="bubble">Network & Connectivity</div>
-            <div class="bubble">CCaaS</div>
-            <div class="bubble">UCaaS</div>
-            <div class="bubble">Mobility</div>
-            <div class="bubble">Managed
-Solutions</div>
-
-            <!-- Duplicate bubbles for seamless scroll -->
-            <div class="bubble">Cybersecurity</div>
-            <div class="bubble">Cloud</div>
-            <div class="bubble">AI & Automation</div>
-            <div class="bubble">Colocations</div>
-            <div class="bubble">Network & Connectivity</div>
-            <div class="bubble">CCaaS</div>
-            <div class="bubble">UCaaS</div>
-            <div class="bubble">Mobility</div>
-            <div class="bubble">Managed
-Solutions</div>
+        <div class="carousel-track" id="carousel-track">
+            <!-- Bubbles will be added dynamically -->
         </div>
     </div>
+
+    <script>
+        const track = document.getElementById("carousel-track");
+        const items = [
+            "Cybersecurity", "Cloud", "AI & Automation", "Colocations", 
+            "Network & Connectivity", "CCaaS", "UCaaS", "Mobility", "Managed Solutions"
+        ];
+
+        function createBubbles() {
+            [...items, ...items].forEach(text => {
+                let bubble = document.createElement("div");
+                bubble.classList.add("bubble");
+                bubble.textContent = text;
+                track.appendChild(bubble);
+            });
+        }
+
+        createBubbles();
+    </script>
 
 </body>
 </html>
